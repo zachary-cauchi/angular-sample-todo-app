@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/models/todo';
-import { TODOS } from '../mock-todos';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-todos-list',
@@ -11,14 +11,16 @@ export class TodosListComponent implements OnInit {
 
   todos: Todo[] = [];
 
-  constructor() { }
+  constructor(
+    private todosService: TodoService
+  ) { }
 
   ngOnInit(): void {
     this.getTodos();
   }
 
   private getTodos() {
-    this.todos = TODOS;
+    this.todosService.getTodos().subscribe(todos => this.todos = todos);
   }
 
 }
