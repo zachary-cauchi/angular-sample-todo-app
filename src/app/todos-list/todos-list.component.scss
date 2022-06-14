@@ -1,0 +1,35 @@
+$todo-button-colour: skyblue;
+
+.todos-container {
+    background-color: lightgray;
+    border-radius: 0.5rem;
+}
+
+.todos-list {
+    padding-left: 0%;
+}
+
+.todo {
+    list-style-type: none;
+}
+
+.todo-button {
+    background-color: $todo-button-colour;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: small;
+    padding: 0.5rem 0.25rem;
+    margin: 2rem 1rem;
+    border-radius: 0.5rem;
+
+    &:hover {
+        background-color: darken($color: $todo-button-colour, $amount: 5);
+    }
+
+    &:active {
+        background-color: darken($color: $todo-button-colour, $amount: 20);
+    }
+}

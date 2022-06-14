@@ -1,1 +1,7 @@
-<p>todos-list works!</p>
+<div class="todos-container">
+    <ul class="todos-list" *ngFor="let todo of todos" >
+        <li class="todo">
+            <button class="todo-button" type="button">{{todo.text}}</button>
+        </li>
+    </ul>
+</div>
