@@ -33,6 +33,16 @@ export class TodoService {
     return of(todo);
   }
 
+  updateTodo(todo: Todo): Observable<Todo> {
+    const todoIndex = this.todos.findIndex(existingTodo => existingTodo.id === todo.id);
+
+    if (todoIndex < 0) return of();
+
+    this.todos.splice(todoIndex, 1, todo);
+
+    return of(todo);
+  }
+
   deleteTodoById(id: number): Observable<Todo> {
     const todoIndex = this.todos.findIndex(todo => todo.id === id);
 

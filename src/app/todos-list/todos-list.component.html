@@ -1,7 +1,8 @@
 <div class="todos-container">
     <ul class="todos-list" *ngFor="let todo of todos" >
         <li class="todo">
-            <button class="todo-button" type="button">{{todo.text}}</button>
+            <button class="todo-button" [class.completed]="todo.isComplete" type="button">{{todo.text}}</button>
+            <input class="todo-complete-checkbox" type="checkbox" (change)="updateTodo(todo)" [(ngModel)]="todo.isComplete" />
         </li>
     </ul>
 </div>

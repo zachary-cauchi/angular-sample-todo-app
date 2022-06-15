@@ -23,4 +23,8 @@ export class TodosListComponent implements OnInit {
     this.todosService.getTodos().subscribe(todos => this.todos = todos);
   }
 
+  updateTodo(todo: Todo) {
+    this.todosService.updateTodo(todo).subscribe();
+  }
+
 }

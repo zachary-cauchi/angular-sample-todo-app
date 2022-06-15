@@ -32,4 +32,13 @@ $todo-button-colour: skyblue;
     &:active {
         background-color: darken($color: $todo-button-colour, $amount: 20);
     }
+
+    &.completed {
+        text-decoration: line-through;
+    }
+}
+
+.todo-complete-checkbox {
+    background-color: $todo-button-colour;
+    padding: 0.25rem 0.25rem;
 }
