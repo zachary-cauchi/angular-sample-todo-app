@@ -1,0 +1,46 @@
+/*
+ Based on https://stackoverflow.com/questions/36267507/is-it-possible-to-animate-a-css-line-through-text-decoration
+ */
+
+@keyframes strike {
+    0%   { width : 0; }
+    100% { width: 100%; }
+}
+
+@keyframes unstrike {
+    0%   { left: 0; width : 100%; }
+    100% { left: 100%; width: 0; }
+}
+
+.strikethrough {
+    position: relative;
+}
+
+.strikethrough {
+    &::after {
+        content: ' ';
+        position: absolute;
+        left: 0;
+
+        // Determine the dimensions of the strike.
+        // The strike is centered relative to the font size.
+        top: 0.5em;
+        width: 100%;
+        height: 0.15em;
+        background: black;
+        animation-duration: 0.5s;
+        animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+        animation-direction: alternate;
+    }
+
+    // When the span is marked, activate the strikethrough animation.
+    &.strike::after {
+        animation-name: strike;
+    }
+
+    &:not(.strike)::after {
+        animation-name: unstrike;
+    }
+}

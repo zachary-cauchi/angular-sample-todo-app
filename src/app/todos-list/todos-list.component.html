@@ -2,9 +2,9 @@
     <ul class="todos-list" *ngFor="let todo of todos" >
         <li class="todo">
                 <button class="todo-button" type="button">
-                    <span class="strikethrough" [class.completed]="todo.isComplete">
+                    <app-strikethrough [strike]="todo.isComplete">
                         {{todo.text}}
-                    </span>
+                    </app-strikethrough>
                 </button>
             <input class="todo-complete-checkbox" type="checkbox" (change)="updateTodo(todo)" [(ngModel)]="todo.isComplete" />
         </li>
