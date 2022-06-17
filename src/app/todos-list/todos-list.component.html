@@ -1,4 +1,9 @@
 <div class="todos-container">
+    <div>
+        <label for="new-todo-textfield">New Todo: </label>
+        <input id="new-todo-textfield" type="text" (keypress)="newTodoOnEnter($event)" [(ngModel)]="newTodoText" placeholder="Need to do this..." />
+        <button (click)="createNewTodo()">Create Todo</button>
+    </div>
     <ul class="todos-list" *ngFor="let todo of todos" >
         <li class="todo">
             <app-strikethrough class="todo-button" [strike]="todo.isComplete">

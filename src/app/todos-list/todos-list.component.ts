@@ -11,6 +11,8 @@ export class TodosListComponent implements OnInit {
 
   todos: Todo[] = [];
 
+  newTodoText = '';
+
   constructor(
     private todosService: TodoService
   ) { }
@@ -33,6 +35,21 @@ export class TodosListComponent implements OnInit {
 
   updateTodoComplete(todo: Todo, isComplete: boolean) {
     this.updateTodo({ ...todo, isComplete });
+  }
+
+  createNewTodo() {
+    this.todosService.addTodoByText(this.newTodoText)
+    .subscribe({
+      complete: () => {
+        this.newTodoText = '';
+      }
+    })
+  }
+
+  newTodoOnEnter($event: KeyboardEvent) {
+    if ($event.key === 'Enter') {
+      this.createNewTodo();
+    }
   }
 
 }

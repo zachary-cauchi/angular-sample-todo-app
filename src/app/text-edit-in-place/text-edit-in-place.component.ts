@@ -1,8 +1,10 @@
 import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { filter, fromEvent, mergeMap, Observable, Subject, Subscription, take } from 'rxjs';
+import { filter, fromEvent, mergeMap, Subject, Subscription, take } from 'rxjs';
 import { TextEditModeDirective } from '../text-edit-mode.directive';
 import { TextViewModeDirective } from '../text-view-mode.directive';
 
+// Component for in-place text editing based on the following tutorial:
+// https://netbasal.com/keeping-it-simple-implementing-edit-in-place-in-angular-4fd92c4dfc70
 @Component({
   selector: 'app-text-edit-in-place',
   templateUrl: './text-edit-in-place.component.html',

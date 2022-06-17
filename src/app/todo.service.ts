@@ -33,6 +33,14 @@ export class TodoService {
     return of(todo);
   }
 
+  addTodoByText(text: string): Observable<Todo> {
+    const todo: Todo = { id: this.genId(), text, dateCreated: new Date(), isComplete: false };
+
+    this.todos.push(todo);
+
+    return of(todo);
+  }
+
   updateTodo(todo: Todo): Observable<Todo> {
     const todoIndex = this.todos.findIndex(existingTodo => existingTodo.id === todo.id);
 
@@ -51,5 +59,9 @@ export class TodoService {
     const todo = this.todos.splice(todoIndex, 1)[0];
 
     return of(todo);
+  }
+
+  genId(): number {
+    return this.todos.reduce((max, { id }) => Math.max(max, id), -1) + 1;
   }
 }
