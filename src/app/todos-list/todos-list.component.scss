@@ -38,3 +38,7 @@ $todo-button-colour: skyblue;
     background-color: $todo-button-colour;
     padding: 0.25rem 0.25rem;
 }
+
+.todo-field {
+    background-color: mix($todo-button-colour, white, 50%);
+}

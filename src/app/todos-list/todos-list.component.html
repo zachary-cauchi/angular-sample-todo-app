@@ -1,11 +1,14 @@
 <div class="todos-container">
     <ul class="todos-list" *ngFor="let todo of todos" >
         <li class="todo">
-                <button class="todo-button" type="button">
-                    <app-strikethrough [strike]="todo.isComplete">
-                        {{todo.text}}
-                    </app-strikethrough>
-                </button>
+            <app-strikethrough class="todo-button" [strike]="todo.isComplete">
+                <app-text-edit-in-place appTextEditOnEnter [readOnly]="todo.isComplete" (update)="updateTodo(todo)">
+                    <ng-template appTextViewMode>{{todo.text}}</ng-template>
+                    <ng-template appTextEditMode>
+                        <input class="todo-field" [(ngModel)]="todo.text" [value]="todo.text" />
+                    </ng-template>
+                </app-text-edit-in-place>
+            </app-strikethrough>
             <input class="todo-complete-checkbox" type="checkbox" (change)="updateTodo(todo)" [(ngModel)]="todo.isComplete" />
         </li>
     </ul>

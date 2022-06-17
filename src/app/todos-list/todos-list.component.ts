@@ -27,4 +27,12 @@ export class TodosListComponent implements OnInit {
     this.todosService.updateTodo(todo).subscribe();
   }
 
+  updateTodoText(todo: Todo, newText: string) {
+    this.updateTodo({ ...todo, text: newText});
+  }
+
+  updateTodoComplete(todo: Todo, isComplete: boolean) {
+    this.updateTodo({ ...todo, isComplete });
+  }
+
 }
