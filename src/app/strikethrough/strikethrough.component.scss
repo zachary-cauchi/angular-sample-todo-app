@@ -25,7 +25,7 @@
         // Determine the dimensions of the strike.
         // The strike is centered relative to the font size.
         top: 0.5em;
-        width: 100%;
+        width: 0;
         height: 0.15em;
 
         background: black;
@@ -34,14 +34,17 @@
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
         animation-direction: alternate;
+        animation-play-state: paused;
     }
 
     // When the span is marked, activate the strikethrough animation.
     &.strike::after {
         animation-name: strike;
+        animation-play-state: running;
     }
 
-    &:not(.strike)::after {
+    &.unstrike::after {
         animation-name: unstrike;
+        animation-play-state: running;
     }
 }
