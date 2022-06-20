@@ -15,6 +15,7 @@
                 </app-text-edit-in-place>
             </app-strikethrough>
             <input class="todo-complete-checkbox" type="checkbox" (change)="updateTodo(todo)" [(ngModel)]="todo.isComplete" />
+            <button class="todo-button-delete" (click)="deleteTodo(todo.id)">❌</button>
         </li>
     </ul>
 </div>

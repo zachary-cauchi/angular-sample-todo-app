@@ -43,7 +43,12 @@ export class TodosListComponent implements OnInit {
       complete: () => {
         this.newTodoText = '';
       }
-    })
+    });
+  }
+
+  deleteTodo(id: number) {
+    this.todosService.deleteTodoById(id)
+      .subscribe();
   }
 
   newTodoOnEnter($event: KeyboardEvent) {

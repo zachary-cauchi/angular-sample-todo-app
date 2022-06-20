@@ -40,6 +40,10 @@ $todo-button-colour: skyblue;
     padding: 0.25rem 0.25rem;
 }
 
+.todo-button-delete {
+    // border-radius: 50%;
+}
+
 .todo-field {
     background-color: mix($todo-button-colour, white, 50%);
 }
