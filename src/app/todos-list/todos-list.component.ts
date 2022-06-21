@@ -38,7 +38,13 @@ export class TodosListComponent implements OnInit {
   }
 
   createNewTodo() {
-    this.todosService.addTodoByText(this.newTodoText)
+    const todoText = this.newTodoText.trim();
+
+    if (!todoText) { return; }
+
+    const todo = { text: todoText, dateCreated: new Date(), isComplete: false } as Todo;
+
+    this.todosService.addTodo(todo)
     .subscribe({
       complete: () => {
         this.newTodoText = '';
@@ -47,7 +53,8 @@ export class TodosListComponent implements OnInit {
   }
 
   deleteTodo(id: number) {
-    this.todosService.deleteTodoById(id)
+    // this.todos = this.todos.filter(todo => todo.id !== id);
+    this.todosService.deleteTodo(id)
       .subscribe();
   }
 
