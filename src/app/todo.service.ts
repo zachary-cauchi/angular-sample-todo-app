@@ -36,16 +36,6 @@ export class TodoService {
     );
   }
 
-  getTodoNo404(id: number): Observable<Todo> {
-    const url = `${this.todosUrl}/${id}`;
-
-    return this.http.get<Todo[]>(url)
-      .pipe(
-        map(todos => todos[0]),
-        catchError(this.handleError<Todo> `getTodo id=${id}`)
-      );
-  }
-
   searchTodos(term: string): Observable<Todo[]> {
     if (!term.trim()) {
       return of([]);

@@ -45,17 +45,18 @@ export class TodosListComponent implements OnInit {
     const todo = { text: todoText, dateCreated: new Date(), isComplete: false } as Todo;
 
     this.todosService.addTodo(todo)
-    .subscribe({
-      complete: () => {
-        this.newTodoText = '';
-      }
+    .subscribe(todo => {
+      this.newTodoText = '';
+      this.todos.push(todo);
     });
   }
 
   deleteTodo(id: number) {
     // this.todos = this.todos.filter(todo => todo.id !== id);
     this.todosService.deleteTodo(id)
-      .subscribe();
+      .subscribe(todo => {
+        this.todos = this.todos.filter(t => t.id !== id);
+      });
   }
 
   newTodoOnEnter($event: KeyboardEvent) {
