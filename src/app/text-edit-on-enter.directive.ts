@@ -1,18 +1,18 @@
-import { Directive, HostListener } from '@angular/core';
-import { TextEditInPlaceComponent } from './text-edit-in-place/text-edit-in-place.component';
+import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Directive({
   selector: '[appTextEditOnEnter]'
 })
 export class TextEditOnEnterDirective {
 
-  constructor(
-    private editable: TextEditInPlaceComponent
-  ) { }
+  @Output()
+  onEnter: EventEmitter<any> = new EventEmitter();
+
+  constructor() { }
 
   @HostListener('keyup.enter')
-  onEnter() {
-    this.editable.toViewMode();
+  handleEnter() {
+    this.onEnter.emit(this);
   }
 
 }

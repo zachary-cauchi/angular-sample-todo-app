@@ -1,1 +1,1 @@
-<ng-container *ngTemplateOutlet="currentView"></ng-container>
+<ng-container appTextEditOnEnter (onEnter)="this.toViewMode()" *ngTemplateOutlet="currentView"></ng-container>

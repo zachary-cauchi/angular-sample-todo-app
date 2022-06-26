@@ -38,17 +38,25 @@ export class TodosListComponent implements OnInit {
   }
 
   createNewTodo() {
-    this.todosService.addTodoByText(this.newTodoText)
-    .subscribe({
-      complete: () => {
-        this.newTodoText = '';
-      }
+    const todoText = this.newTodoText.trim();
+
+    if (!todoText) { return; }
+
+    const todo = { text: todoText, dateCreated: new Date(), isComplete: false } as Todo;
+
+    this.todosService.addTodo(todo)
+    .subscribe(todo => {
+      this.newTodoText = '';
+      this.todos.push(todo);
     });
   }
 
   deleteTodo(id: number) {
-    this.todosService.deleteTodoById(id)
-      .subscribe();
+    // this.todos = this.todos.filter(todo => todo.id !== id);
+    this.todosService.deleteTodo(id)
+      .subscribe(todo => {
+        this.todos = this.todos.filter(t => t.id !== id);
+      });
   }
 
   newTodoOnEnter($event: KeyboardEvent) {

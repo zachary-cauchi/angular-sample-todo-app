@@ -1,5 +1,6 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { filter, Observable, of } from 'rxjs';
+import { catchError, filter, Observable, of } from 'rxjs';
 import { Todo } from 'src/models/todo';
 import { TODOS } from './mock-todos';
 
@@ -8,60 +9,70 @@ import { TODOS } from './mock-todos';
 })
 export class TodoService {
 
+  private todosUrl = 'api/todos';
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
   todos: Todo[] = TODOS
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getTodos(): Observable<Todo[]> {
-    return of(this.todos);
+    return this.http.get<Todo[]>(this.todosUrl)
+      .pipe(
+        catchError(this.handleError<Todo[]>('getTodos', []))
+      );
   }
 
   getTodoById(id: number): Observable<Todo> {
-    // Find a todo, telling the compiler to ignore undefineds in case one isn't found.
-    const todo = this.todos.find(todo => todo.id === id)!;
+    const url = `${this.todosUrl}/${id}`;
 
-    return of(todo);
+    return this.http.get<Todo>(url).pipe(
+      catchError(this.handleError<Todo>(`getTodo id=${id}`))
+    );
+  }
+
+  searchTodos(term: string): Observable<Todo[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+
+    return this.http.get<Todo[]>(`${this.todosUrl}/?text=${term}`).pipe(
+      catchError(this.handleError<Todo[]>('searchTodos', []))
+    );
   }
 
   addTodo(todo: Todo): Observable<Todo> {
-    const foundTodo = this.todos.find(existingTodo => existingTodo === todo || existingTodo.id === todo.id)!;
-
-    if (foundTodo) return of();
-
-    this.todos.push(todo);
-
-    return of(todo);
+    return this.http.post<Todo>(this.todosUrl, todo, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<Todo>('addTodo'))
+      );
   }
 
-  addTodoByText(text: string): Observable<Todo> {
-    const todo: Todo = { id: this.genId(), text, dateCreated: new Date(), isComplete: false };
-
-    this.todos.push(todo);
-
-    return of(todo);
+  updateTodo(todo: Todo): Observable<any> {
+    return this.http.put(this.todosUrl, todo, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<any>(`updateTodo id=${todo.id}`))
+      );
   }
 
-  updateTodo(todo: Todo): Observable<Todo> {
-    const todoIndex = this.todos.findIndex(existingTodo => existingTodo.id === todo.id);
+  deleteTodo(id: number): Observable<Todo> {
+    const url = `${this.todosUrl}/${id}`;
 
-    if (todoIndex < 0) return of();
-
-    this.todos.splice(todoIndex, 1, todo);
-
-    return of(todo);
+    return this.http.delete<Todo>(url, this.httpOptions).pipe(
+      catchError(this.handleError<Todo>('deleteTodo'))
+    );
   }
 
-  deleteTodoById(id: number): Observable<Todo> {
-    const todoIndex = this.todos.findIndex(todo => todo.id === id);
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
 
-    if (todoIndex < 0) return of();
-
-    const todo = this.todos.splice(todoIndex, 1)[0];
-
-    return of(todo);
-  }
-
-  genId(): number {
-    return this.todos.reduce((max, { id }) => Math.max(max, id), -1) + 1;
+      return of(result as T);
+    };
   }
 }

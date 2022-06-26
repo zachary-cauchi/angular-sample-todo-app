@@ -10,6 +10,9 @@ import { TextEditInPlaceComponent } from './text-edit-in-place/text-edit-in-plac
 import { TextViewModeDirective } from './text-view-mode.directive';
 import { TextEditModeDirective } from './text-edit-mode.directive';
 import { TextEditOnEnterDirective } from './text-edit-on-enter.directive';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,11 @@ import { TextEditOnEnterDirective } from './text-edit-on-enter.directive';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

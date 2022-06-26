@@ -7,7 +7,7 @@
     <ul class="todos-list" *ngFor="let todo of todos" >
         <li class="todo">
             <app-strikethrough class="todo-button" [strike]="todo.isComplete">
-                <app-text-edit-in-place appTextEditOnEnter [readOnly]="todo.isComplete" (update)="updateTodo(todo)">
+                <app-text-edit-in-place [readOnly]="todo.isComplete" (update)="updateTodo(todo)">
                     <ng-template appTextViewMode>{{todo.text}}</ng-template>
                     <ng-template appTextEditMode>
                         <input class="todo-field" [(ngModel)]="todo.text" [value]="todo.text" />
