@@ -4,8 +4,8 @@
         <input id="new-todo-textfield" type="text" (keypress)="newTodoOnEnter($event)" [(ngModel)]="newTodoText" placeholder="Need to do this..." />
         <button (click)="createNewTodo()">Create Todo</button>
     </div>
-    <ul class="todos-list" *ngFor="let todo of todos" >
-        <li class="todo">
+    <ul class="todos-list" >
+        <li class="todo" *ngFor="let todo of todos" >
             <app-strikethrough class="todo-button" [strike]="todo.isComplete">
                 <app-text-edit-in-place [readOnly]="todo.isComplete" (update)="updateTodo(todo)">
                     <ng-template appTextViewMode>{{todo.text}}</ng-template>
