@@ -46,8 +46,10 @@ export class TodosListComponent implements OnInit {
 
     this.todosService.addTodo(todo)
     .subscribe(todo => {
-      this.newTodoText = '';
-      this.todos.push(todo);
+      if (todo) {
+        this.newTodoText = '';
+        this.todos.push(todo);
+      }
     });
   }
 
@@ -55,7 +57,9 @@ export class TodosListComponent implements OnInit {
     // this.todos = this.todos.filter(todo => todo.id !== id);
     this.todosService.deleteTodo(id)
       .subscribe(todo => {
-        this.todos = this.todos.filter(t => t.id !== id);
+        if (todo) {
+          this.todos = this.todos.filter(t => t.id !== id);
+        }
       });
   }
 

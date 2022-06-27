@@ -18,6 +18,11 @@ export class StrikethroughComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
+    // If the component is initialised as already being striken,
+    // update the strike to show the strikethrough.
+    if (this.strike) {
+      this.updateStrike(this.strike);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

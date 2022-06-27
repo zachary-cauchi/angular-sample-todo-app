@@ -15,7 +15,7 @@ export class TodoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  todos: Todo[] = TODOS
+  todos: Todo[] = [];
 
   constructor(
     private http: HttpClient
@@ -29,7 +29,7 @@ export class TodoService {
   }
 
   getTodoById(id: number): Observable<Todo> {
-    const url = `${this.todosUrl}/${id}`;
+    const url = `${this.todosUrl}/id=${id}`;
 
     return this.http.get<Todo>(url).pipe(
       catchError(this.handleError<Todo>(`getTodo id=${id}`))
@@ -41,7 +41,7 @@ export class TodoService {
       return of([]);
     }
 
-    return this.http.get<Todo[]>(`${this.todosUrl}/?text=${term}`).pipe(
+    return this.http.get<Todo[]>(`${this.todosUrl}?text=${term}`).pipe(
       catchError(this.handleError<Todo[]>('searchTodos', []))
     );
   }
@@ -54,7 +54,9 @@ export class TodoService {
   }
 
   updateTodo(todo: Todo): Observable<any> {
-    return this.http.put(this.todosUrl, todo, this.httpOptions)
+    const url = `${this.todosUrl}/${todo.id}`;
+    
+    return this.http.put(url, todo, this.httpOptions)
       .pipe(
         catchError(this.handleError<any>(`updateTodo id=${todo.id}`))
       );
