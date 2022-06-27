@@ -54,7 +54,6 @@ export class TodosListComponent implements OnInit {
   }
 
   deleteTodo(id: number) {
-    // this.todos = this.todos.filter(todo => todo.id !== id);
     this.todosService.deleteTodo(id)
       .subscribe(todo => {
         if (todo) {
