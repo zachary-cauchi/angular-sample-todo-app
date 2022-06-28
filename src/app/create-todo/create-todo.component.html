@@ -4,6 +4,12 @@
     <input class="todo-complete-checkbox" type="checkbox" [(ngModel)]="isCompleted" />
     <button (click)="createNewTodo()">Create Todo</button>
     <p></p>
-    <label for="new-tod-tags">Select tags: </label>
-    
+    <label for="new-todo-tags">Select tags: </label>
+    <ng-multiselect-dropdown
+        [placeholder]="'No tags selected'"
+        [settings]="dropdownSettings"
+        [data]="dropdownTagOptions"
+        [(ngModel)]="selectedTags"
+
+    ></ng-multiselect-dropdown>
 </div>

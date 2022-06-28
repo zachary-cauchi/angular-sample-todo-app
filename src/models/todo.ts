@@ -2,6 +2,6 @@ export interface Todo {
     id: number,
     dateCreated: Date,
     text: string,
-    tags: string[],
+    tags: number[],
     isComplete: boolean
 }

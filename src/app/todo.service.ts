@@ -46,7 +46,7 @@ export class TodoService {
     );
   }
 
-  addTodo(todo: Todo): Observable<Todo> {
+  addTodo(todo: Omit<Todo, 'id'>): Observable<Todo> {
     return this.http.post<Todo>(this.todosUrl, todo, this.httpOptions)
       .pipe(
         catchError(this.handleError<Todo>('addTodo'))

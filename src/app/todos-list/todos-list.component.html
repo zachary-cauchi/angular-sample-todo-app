@@ -6,6 +6,9 @@
     </div>
     <ul class="todos-list" >
         <li class="todo" *ngFor="let todo of todos" >
+            <div>
+                
+            </div>
             <app-strikethrough class="todo-button" [strike]="todo.isComplete">
                 <app-text-edit-in-place [readOnly]="todo.isComplete" (update)="updateTodo(todo)">
                     <ng-template appTextViewMode>{{todo.text}}</ng-template>
@@ -15,6 +18,7 @@
                 </app-text-edit-in-place>
             </app-strikethrough>
             <input class="todo-complete-checkbox" type="checkbox" (change)="updateTodo(todo)" [(ngModel)]="todo.isComplete" />
+            <!-- <button class="todo-button-info">ℹ</button> -->
             <button class="todo-button-delete" (click)="deleteTodo(todo.id)">❌</button>
         </li>
     </ul>
