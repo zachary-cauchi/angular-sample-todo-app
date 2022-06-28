@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Todo } from 'src/models/todo';
 import { TodoTag } from 'src/models/todo-tag';
+import { TAGS } from '../mock-tags';
 import { TodoService } from '../todo.service';
 
 @Component({
@@ -27,13 +28,7 @@ export class CreateTodoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.dropdownTagOptions = [
-      { id: 0, text: 'general', icon: '•' },
-      { id: 1, text: 'test', icon: '🔧' },
-      { id: 2, text: 'shopping', icon: '🛒' },
-      { id: 3, text: 'birthday', icon: '🍰' },
-      { id: 4, text: 'cooking', icon: '🥞' }
-    ];
+    this.dropdownTagOptions = TAGS;
 
     this.selectedTags = [];
 

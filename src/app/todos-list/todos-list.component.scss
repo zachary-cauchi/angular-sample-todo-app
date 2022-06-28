@@ -1,5 +1,11 @@
 $todo-button-colour: skyblue;
 
+.todo-tags {
+    min-width: 5%;
+    margin-right: auto;
+    text-overflow: overflow;
+}
+
 .todos-container {
     background-color: lightgray;
     border-radius: 0.5rem;
