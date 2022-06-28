@@ -13,6 +13,7 @@ import { TextEditOnEnterDirective } from './text-edit-on-enter.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { CreateTodoComponent } from './create-todo/create-todo.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InMemoryDataService } from './in-memory-data.service';
     TextEditInPlaceComponent,
     TextViewModeDirective,
     TextEditModeDirective,
-    TextEditOnEnterDirective
+    TextEditOnEnterDirective,
+    CreateTodoComponent,
   ],
   imports: [
     BrowserModule,

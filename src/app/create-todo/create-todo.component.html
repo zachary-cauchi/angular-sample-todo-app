@@ -1,0 +1,9 @@
+<div>
+    <label for="new-todo-textfield">New Todo: </label>
+    <input id="new-todo-textfield" type="text" (keypress)="newTodoOnEnter($event)" [(ngModel)]="newTodoText" placeholder="Need to do this..." />
+    <input class="todo-complete-checkbox" type="checkbox" [(ngModel)]="isCompleted" />
+    <button (click)="createNewTodo()">Create Todo</button>
+    <p></p>
+    <label for="new-tod-tags">Select tags: </label>
+    
+</div>

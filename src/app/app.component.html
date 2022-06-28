@@ -1,3 +1,6 @@
 <h1 id="app-root-title">ToDo-ify</h1>
-
-<app-todos-list></app-todos-list>
+<nav>
+    <a routerLink="/todos" routerLinkActive="active" ariaCurrentWhenActive="page">Todos List</a>
+    <a routerLink="/new-todo" routerLinkActive="active" ariaCurrentWhenActive="page">Create Todo</a>
+</nav>
+<router-outlet></router-outlet>
