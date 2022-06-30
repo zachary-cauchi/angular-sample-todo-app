@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +11,15 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   loginForm = this.fb.group({
-    emailField: ['', Validators.required],
+    emailField: ['', Validators.compose([Validators.required, Validators.email])],
     passwordField: ['', Validators.required]
   }, { updateOn: 'submit' })
 
+  errorMessage: string = '';
+
   constructor(
     private fb: FormBuilder,
+    private userService: UserService,
     private location: Location
   ) { }
 
@@ -24,6 +28,18 @@ export class LoginComponent implements OnInit {
   }
 
   tryLogin(): void {
+    if (this.loginForm.status === 'VALID') {
+      const loginValue = this.loginForm.value;
+
+      this.userService.loginUser(loginValue.emailField || '', loginValue.passwordField || '').subscribe(res => {
+        if (res?.accessToken && res?.user) {
+          console.log('Logged in');
+        } else if(res?.error) {
+          this.errorMessage = res?.error;
+        }
+      });
+    }
+
   }
 
   successfulLogin() {
