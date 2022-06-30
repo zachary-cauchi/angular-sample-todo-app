@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,7 @@ import { InMemoryDataService } from './in-memory-data.service';
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TodoIconPipe } from './todo-icon.pipe';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +29,13 @@ import { TodoIconPipe } from './todo-icon.pipe';
     TextEditOnEnterDirective,
     CreateTodoComponent,
     TodoIconPipe,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgMultiSelectDropDownModule.forRoot(),
     // HttpClientInMemoryWebApiModule.forRoot(
