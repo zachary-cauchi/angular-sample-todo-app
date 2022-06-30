@@ -16,7 +16,7 @@ The aims of this project are as follows:
 
 ## Extended goals
 * [ ] Add users (no initial ) for per-user todos.
-* [ ] Add server-side JWT authentication.
+* [x] Add server-side JWT authentication.
 * [ ] Add login page to authenticate users.
 * [ ] Add signup page to create new users.
 

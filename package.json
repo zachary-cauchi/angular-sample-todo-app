@@ -22,7 +22,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server": "json-server-auth json-db/db.json",
+    "server": "json-server-auth json-db/db.json -r routes.json",
     "add-base-user": "curl -d @base-user.json --header \"Content-Type: application/json\" localhost:3000/register"
   },
   "private": true,
