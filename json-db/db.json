@@ -51,14 +51,46 @@
       ],
       "isComplete": false,
       "id": 20
+    },
+    {
+      "text": "test TagService",
+      "dateCreated": "2022-06-30T09:33:37.005Z",
+      "tags": [
+        0,
+        2,
+        1,
+        3,
+        4
+      ],
+      "isComplete": false,
+      "id": 21
     }
   ],
-
   "tags": [
-      { "id": 0, "text": "general", "icon": "•" },
-      { "id": 1, "text": "test", "icon": "🔧" },
-      { "id": 2, "text": "shopping", "icon": "🛒" },
-      { "id": 3, "text": "birthday", "icon": "🍰" },
-      { "id": 4, "text": "cooking", "icon": "🥞" }
+    {
+      "id": 0,
+      "text": "general",
+      "icon": "🏷"
+    },
+    {
+      "id": 1,
+      "text": "test",
+      "icon": "🔧"
+    },
+    {
+      "id": 2,
+      "text": "shopping",
+      "icon": "🛒"
+    },
+    {
+      "id": 3,
+      "text": "birthday",
+      "icon": "🍰"
+    },
+    {
+      "id": 4,
+      "text": "cooking",
+      "icon": "🥞"
+    }
   ]
 }

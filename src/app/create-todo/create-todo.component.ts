@@ -15,7 +15,7 @@ export class CreateTodoComponent implements OnInit {
   newTodoText = '';
   isCompleted = false;
 
-  dropdownTagOptions: TodoTag[] = [];
+  dropdownTagOptions: (TodoTag | { preview: string })[] = [];
 
   selectedTags: TodoTag[] = [];
 
@@ -29,14 +29,14 @@ export class CreateTodoComponent implements OnInit {
 
   ngOnInit(): void {
     this.tagsService.getTags().subscribe(tags => {
-      this.dropdownTagOptions = tags;
+      this.dropdownTagOptions = tags.map(t => ({ ...t, preview: `${t.icon} - ${t.text}` }));
     });
 
     this.selectedTags = [];
 
     this.dropdownSettings = {
       idField: 'id',
-      textField: 'text',
+      textField: 'preview',
       selectAllText: 'Select all Tags',
       unSelectAllText: 'Unselect all Tags',
       allowSearchFilter: true,
