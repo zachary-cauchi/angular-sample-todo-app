@@ -5,15 +5,22 @@ The aims of this project are as follows:
 ## MVP goals
 
 * [x] Generate the base angular app.
-* [ ] Create the Todo types. Each todo should have the following:
+* [x] Create the Todo types. Each todo should have the following:
     * Date created
     * Message content
     * Is completed
-* [ ] Create a user interface for the todo app using mock todo data.
+* [x] Create a user interface for the todo app using mock todo data.
+* [x] Use server to store and supply todos.
+* [x] Add interface for creating new todos.
+* [x] Add ability to delete todos.
+
+## Extended goals
+* [ ] Add users (no initial ) for per-user todos.
+* [ ] Add server-side JWT authentication.
+* [ ] Add login page to authenticate users.
+* [ ] Add signup page to create new users.
 
 ## ToDo App
-
-## TodoApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.1.
 
