@@ -1,9 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { Todo } from 'src/models/todo';
 import { TodoTag } from 'src/models/todo-tag';
-import { TAGS } from '../mock-tags';
+import { TagService } from '../tag.service';
 import { TodoService } from '../todo.service';
 
 @Component({
@@ -24,11 +23,14 @@ export class CreateTodoComponent implements OnInit {
 
   constructor(
     private todosService: TodoService,
+    private tagsService: TagService,
     private location: Location
   ) { }
 
   ngOnInit(): void {
-    this.dropdownTagOptions = TAGS;
+    this.tagsService.getTags().subscribe(tags => {
+      this.dropdownTagOptions = tags;
+    });
 
     this.selectedTags = [];
 

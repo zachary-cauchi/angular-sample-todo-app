@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/models/todo';
+import { TodoTag } from 'src/models/todo-tag';
+import { TagService } from '../tag.service';
 import { TodoService } from '../todo.service';
 
 @Component({
@@ -9,20 +11,31 @@ import { TodoService } from '../todo.service';
 })
 export class TodosListComponent implements OnInit {
 
+  tags: TodoTag[] = [];
   todos: Todo[] = [];
 
   newTodoText = '';
 
   constructor(
-    private todosService: TodoService
+    private todosService: TodoService,
+    private tagsService: TagService
   ) { }
 
   ngOnInit(): void {
     this.getTodos();
+    this.getTags();
   }
 
   private getTodos() {
     this.todosService.getTodos().subscribe(todos => this.todos = todos);
+  }
+
+  private getTags() {
+    this.tagsService.getTags().subscribe(tags => this.tags = tags);
+  }
+
+  getTagIcon(id: number) {
+    return this.tags.find(t => t.id === id)?.icon;
   }
 
   updateTodo(todo: Todo) {

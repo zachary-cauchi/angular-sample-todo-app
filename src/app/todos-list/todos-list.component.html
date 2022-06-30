@@ -7,7 +7,7 @@
     <ul class="todos-list" >
         <li class="todo" *ngFor="let todo of todos" >
             <span class="todo-tags">
-                <span *ngFor="let icon of todo.tags">{{icon}} </span>
+                <span>{{todo.tags | todoIcon : this.tags}}</span>
             </span>
             <app-strikethrough class="todo-button" [strike]="todo.isComplete">
                 <app-text-edit-in-place [readOnly]="todo.isComplete" (update)="updateTodo(todo)">

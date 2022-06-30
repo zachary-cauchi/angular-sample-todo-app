@@ -15,6 +15,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { TodoIconPipe } from './todo-icon.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     TextEditModeDirective,
     TextEditOnEnterDirective,
     CreateTodoComponent,
+    TodoIconPipe,
   ],
   imports: [
     BrowserModule,

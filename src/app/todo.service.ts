@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, filter, Observable, of } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { Todo } from 'src/models/todo';
-import { TODOS } from './mock-todos';
 
 @Injectable({
   providedIn: 'root'
