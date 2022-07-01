@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../user.service';
+import { LoginResponse, UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +33,8 @@ export class LoginComponent implements OnInit {
 
       this.userService.loginUser(loginValue.emailField || '', loginValue.passwordField || '').subscribe(res => {
         if (res?.accessToken && res?.user) {
-          console.log('Logged in');
+          this.errorMessage = '';
+          this.successfulLogin(res);
         } else if(res?.error) {
           this.errorMessage = res?.error;
         }
@@ -42,7 +43,14 @@ export class LoginComponent implements OnInit {
 
   }
 
-  successfulLogin() {
+  successfulLogin(res: LoginResponse) {
+    const user = {
+      firstname: res.user?.firstname,
+      lastname: res.user?.lastname
+    };
+
+    sessionStorage.setItem('accessToken', res.accessToken || '');
+    sessionStorage.setItem('user', JSON.stringify(user));
     this.location.back();
   }
 

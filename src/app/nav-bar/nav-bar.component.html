@@ -1,0 +1,20 @@
+<nav>
+    <a routerLink="/todos" routerLinkActive="active" ariaCurrentWhenActive="page">Todos List</a>
+    <a routerLink="/new-todo" routerLinkActive="active" ariaCurrentWhenActive="page">Create Todo</a>
+    <a
+        routerLink="/login"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        id="login-btn"
+        *ngIf="!isLoggedIn()"
+    >Login</a>
+    <a id="nav-greeting" *ngIf="isLoggedIn()">Welcome</a>
+    <a
+        routerLink="/"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        (click)="logout()"
+        id="logout-btn"
+        *ngIf="isLoggedIn()"
+    >Logout</a>
+</nav>

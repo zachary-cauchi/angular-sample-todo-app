@@ -8,5 +8,5 @@
         <br />
         <input type="submit" value="Login" />
     </form>
-    <p>{{errorMessage}}</p>
+    <p *ngIf="errorMessage">Login failed: {{errorMessage}}</p>
 </div>
