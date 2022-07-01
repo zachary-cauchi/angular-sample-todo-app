@@ -15,9 +15,9 @@ The aims of this project are as follows:
 * [x] Add ability to delete todos.
 
 ## Extended goals
-* [ ] Add users (no initial ) for per-user todos.
+* [x] Add users (no initial ) for per-user todos.
 * [x] Add server-side JWT authentication.
-* [ ] Add login page to authenticate users.
+* [x] Add login page to authenticate users.
 * [ ] Add signup page to create new users.
 
 ## ToDo App
