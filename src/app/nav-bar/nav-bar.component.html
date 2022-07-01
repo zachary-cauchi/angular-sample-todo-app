@@ -8,6 +8,13 @@
         id="login-btn"
         *ngIf="!isLoggedIn()"
     >Login</a>
+    <a
+        routerLink="/signup"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        id="signup-btn"
+        *ngIf="!isLoggedIn()"
+    >Signup</a>
     <a id="nav-greeting" *ngIf="isLoggedIn()">Welcome</a>
     <a
         routerLink="/"

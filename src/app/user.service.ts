@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
-import { User } from 'src/models/user';
+import { FullUser, User } from 'src/models/user';
 
 export type LoginResponse = {
   accessToken?: string,
@@ -15,7 +15,7 @@ export type LoginResponse = {
 })
 export class UserService {
 
-  private registerUrl = '/api/register';
+  private registerUrl = '/api/signup';
   private loginUrl = '/api/login';
   private usersUrl = '/api/users';
 
@@ -29,12 +29,31 @@ export class UserService {
 
   loginUser(email: string, password: string): Observable<LoginResponse> {
     return this.http.post(this.loginUrl, { email, password }, this.httpOptions).pipe(
-      map(res => {
-        console.log(res);
-        return res;
-      }),
+      map(this.successfulLogin),
       catchError(this.handleError<any>('loginUser')),
     );
+  }
+
+  createUser(user: Omit<FullUser, 'id'>): Observable<any> {
+    return this.http.post(this.registerUrl, user, this.httpOptions).pipe(
+      map(this.successfulLogin),
+      catchError(this.handleError('createUser')),
+    );
+  }
+
+  successfulLogin(res: LoginResponse) {
+    if (res.accessToken && res.user) {
+      const user = {
+        firstname: res.user?.firstname,
+        lastname: res.user?.lastname,
+        id: res.user?.id
+      };
+  
+      sessionStorage.setItem('accessToken', res.accessToken || '');
+      sessionStorage.setItem('user', JSON.stringify(user));
+    }
+
+    return res;
   }
 
   getLoggedInUser(): User {

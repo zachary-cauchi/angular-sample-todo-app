@@ -6,6 +6,20 @@
       "firstname": "Olivier",
       "lastname": "Monge",
       "id": 1
+    },
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$c72y9bksgGXOilwnez0Ds.Z39Gm1x5gcpnPrGbEONrAsp8btosZYC",
+      "firstname": "Zac",
+      "lastname": "cau",
+      "id": 2
+    },
+    {
+      "email": "test@test2.com",
+      "password": "$2a$10$9edHgysn7DIU7RMHq6FyMOIb4YqKZrzFg8sEL2P0uqm0LO9Rc7Q1a",
+      "firstname": "Zachary",
+      "lastname": "Cauchi",
+      "id": 3
     }
   ],
   "todos": [
@@ -84,6 +98,17 @@
       "isComplete": false,
       "userId": 1,
       "id": 22
+    },
+    {
+      "text": "1234 Edit",
+      "dateCreated": "2022-07-01T14:31:46.112Z",
+      "tags": [
+        1,
+        0
+      ],
+      "isComplete": false,
+      "userId": 3,
+      "id": 23
     }
   ],
   "tags": [

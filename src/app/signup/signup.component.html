@@ -1,0 +1,21 @@
+<div>
+    <form [formGroup]="signupForm" (ngSubmit)="trySignup()">
+        <label for="txt-email">Email: </label>
+        <input id="txt-email" type="email" formControlName="emailField" required />
+        <br/>
+        <label for="txt-password" >Password: </label>
+        <input id="txt-password" type="password" formControlName="passwordField" required />
+        <br />
+        <label for="txt-confirm-password" >Confirm Password: </label>
+        <input id="txt-confirm-password" type="password" formControlName="confirmPasswordField" required />
+        <br />
+        <label for="txt-firstname">First name: </label>
+        <input id="txt-firstname" type="input" formControlName="firstnameField" required />
+        <br/>
+        <label for="txt-lastname">Last name: </label>
+        <input id="txt-lastname" type="input" formControlName="lastnameField" required />
+        <br/>
+        <input type="submit" value="Signup" />
+    </form>
+    <p *ngIf="errorMessage">Login failed: {{errorMessage}}</p>
+</div>

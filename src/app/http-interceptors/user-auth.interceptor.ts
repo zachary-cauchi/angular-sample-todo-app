@@ -12,7 +12,8 @@ import { UserService } from '../user.service';
 export class UserAuthInterceptor implements HttpInterceptor {
 
   private urlBlacklist = [
-    'login'
+    'login',
+    'signup'
   ];
   private skipCurrentRequest = false;
 

@@ -17,6 +17,7 @@ import { TodoIconPipe } from './todo-icon.pipe';
 import { LoginComponent } from './login/login.component';
 import { HTTP_INTERCEPTORS_PROVIDERS } from './http-interceptors';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     CreateTodoComponent,
     TodoIconPipe,
     LoginComponent,
-    NavBarComponent
+    NavBarComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
