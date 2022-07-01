@@ -1,4 +1,4 @@
-export interface User {
+export interface FullUser {
     email: string,
     firstname: string,
     lastname: string,
@@ -6,4 +6,4 @@ export interface User {
     id: 1,
 }
 
-export type UserNoPassword = Omit<User, 'password'>;
+export type User = Omit<FullUser, 'password'>;

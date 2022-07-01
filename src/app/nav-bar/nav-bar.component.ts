@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/models/user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,6 +13,7 @@ export class NavBarComponent implements OnInit {
   firstname = '';
   
   constructor(
+    private userService: UserService,
     private location: Location
   ) {}
 
@@ -25,7 +27,7 @@ export class NavBarComponent implements OnInit {
     
     const user = JSON.parse(sessionStorage.getItem('user') || '{}') as Partial<User>;
     
-    if (user?.firstname && sessionStorage.getItem('accessToken')) {
+    if (user?.firstname && this.userService.getAccessToken()) {
       this.firstname = user.firstname;
 
       return true;

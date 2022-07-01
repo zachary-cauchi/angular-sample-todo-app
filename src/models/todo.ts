@@ -3,5 +3,6 @@ export interface Todo {
     dateCreated: Date,
     text: string,
     tags: number[],
-    isComplete: boolean
+    isComplete: boolean,
+    userId: number
 }

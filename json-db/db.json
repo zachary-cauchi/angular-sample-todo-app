@@ -71,8 +71,19 @@
         3,
         4
       ],
+      "isComplete": true,
+      "id": 21,
+      "userId": 1
+    },
+    {
+      "text": "teadsa",
+      "dateCreated": "2022-07-01T11:40:21.774Z",
+      "tags": [
+        1
+      ],
       "isComplete": false,
-      "id": 21
+      "userId": 1,
+      "id": 22
     }
   ],
   "tags": [

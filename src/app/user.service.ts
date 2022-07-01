@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
-import { UserNoPassword } from 'src/models/user';
+import { User } from 'src/models/user';
 
 export type LoginResponse = {
   accessToken?: string,
-  user?: UserNoPassword,
+  user?: User,
   error?: string,
   status?: number
 };
@@ -35,6 +35,24 @@ export class UserService {
       }),
       catchError(this.handleError<any>('loginUser')),
     );
+  }
+
+  getLoggedInUser(): User {
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}') as User;
+
+    return user;
+  }
+
+  getLoggedInUserId(): number {
+    const userId = this.getLoggedInUser()?.id;
+
+    return userId;
+  }
+
+  getAccessToken(): string {
+    const accessToken = sessionStorage.getItem('accessToken') as string;
+
+    return accessToken;
   }
 
   private handleError<T>(operation = 'operation') {

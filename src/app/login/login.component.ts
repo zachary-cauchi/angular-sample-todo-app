@@ -46,7 +46,8 @@ export class LoginComponent implements OnInit {
   successfulLogin(res: LoginResponse) {
     const user = {
       firstname: res.user?.firstname,
-      lastname: res.user?.lastname
+      lastname: res.user?.lastname,
+      id: res.user?.id
     };
 
     sessionStorage.setItem('accessToken', res.accessToken || '');

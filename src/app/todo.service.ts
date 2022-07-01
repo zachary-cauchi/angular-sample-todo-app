@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { Todo } from 'src/models/todo';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,17 @@ export class TodoService {
   todos: Todo[] = [];
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService
   ) { }
 
   getTodos(): Observable<Todo[]> {
+    const userId = this.userService.getLoggedInUserId();
+
     return this.http.get<Todo[]>(this.todosUrl)
       .pipe(
-        catchError(this.handleError<Todo[]>('getTodos', []))
+        catchError(this.handleError<Todo[]>('getTodos', [])),
+        map(todos => todos.filter(t => t.userId === userId))
       );
   }
 
@@ -45,8 +50,10 @@ export class TodoService {
     );
   }
 
-  addTodo(todo: Omit<Todo, 'id'>): Observable<Todo> {
-    return this.http.post<Todo>(this.todosUrl, todo, this.httpOptions)
+  addTodo(todo: Omit<Todo, 'id' | 'userId'>): Observable<Todo> {
+    const payload = { ...todo, userId: this.userService.getLoggedInUserId() };
+
+    return this.http.post<Todo>(this.todosUrl, payload, this.httpOptions)
       .pipe(
         catchError(this.handleError<Todo>('addTodo'))
       );
@@ -54,8 +61,9 @@ export class TodoService {
 
   updateTodo(todo: Todo): Observable<any> {
     const url = `${this.todosUrl}/${todo.id}`;
-    
-    return this.http.put(url, todo, this.httpOptions)
+    const payload = { ...todo, userId: this.userService.getLoggedInUserId() };
+
+    return this.http.put(url, payload, this.httpOptions)
       .pipe(
         catchError(this.handleError<any>(`updateTodo id=${todo.id}`))
       );

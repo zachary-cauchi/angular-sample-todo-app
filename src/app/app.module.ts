@@ -11,12 +11,12 @@ import { TextViewModeDirective } from './text-view-mode.directive';
 import { TextEditModeDirective } from './text-edit-mode.directive';
 import { TextEditOnEnterDirective } from './text-edit-on-enter.directive';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TodoIconPipe } from './todo-icon.pipe';
 import { LoginComponent } from './login/login.component';
+import { HTTP_INTERCEPTORS_PROVIDERS } from './http-interceptors';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { LoginComponent } from './login/login.component';
     CreateTodoComponent,
     TodoIconPipe,
     LoginComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -38,11 +39,10 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgMultiSelectDropDownModule.forRoot(),
-    // HttpClientInMemoryWebApiModule.forRoot(
-    //   InMemoryDataService, { dataEncapsulation: false }
-    // )
   ],
-  providers: [],
+  providers: [
+    ...HTTP_INTERCEPTORS_PROVIDERS
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
