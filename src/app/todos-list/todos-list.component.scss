@@ -11,15 +11,35 @@ $todo-button-colour: skyblue;
     border-radius: 0.5rem;
 }
 
+.tags-container {
+    display: inline-flex;
+    justify-content: center;
+    align-items: stretch;
+    text-align: center;
+    min-width: 4em
+}
+
+.tags {
+    min-width: 40%;
+    background-color: $todo-button-colour;
+    display: inline-flex;
+    justify-content: space-around;
+    margin-top: auto;
+    border-radius: 0.5rem;
+}
+
 .todos-list {
     padding-left: 0%;
 }
 
 .todo {
     list-style-type: none;
+    display: flex;
+    align-items: center;
+    align-content: stretch;
 }
 
-.todo-button {
+.todo-text {
     background-color: $todo-button-colour;
     border: none;
     color: black;
@@ -31,6 +51,8 @@ $todo-button-colour: skyblue;
     margin-top: 0rem;
     margin-bottom: 0rem;
     border-radius: 0.5rem;
+    // padding-right: auto;
+    // flex-grow: 4;
 
     &:hover {
         background-color: darken($color: $todo-button-colour, $amount: 5);
@@ -41,13 +63,22 @@ $todo-button-colour: skyblue;
     }
 }
 
+.todo-spacer {
+    flex-grow: 4;
+}
+
 .todo-complete-checkbox {
-    background-color: $todo-button-colour;
+    // background-color: $todo-button-colour;
     padding: 0.25rem 0.25rem;
+    min-width: 2em;
+    align-items: center;
+    justify-content: center;
 }
 
 .todo-button-delete {
     // border-radius: 50%;
+    display: flex;
+    justify-self: flex-end;
 }
 
 .todo-field {
