@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.status === 'VALID') {
       const loginValue = this.loginForm.value;
 
+      // Try login the user. If successful, go back to the todos list.
       this.userService.loginUser(loginValue.emailField || '', loginValue.passwordField || '').subscribe(res => {
         if (res?.accessToken && res?.user) {
           this.errorMessage = '';

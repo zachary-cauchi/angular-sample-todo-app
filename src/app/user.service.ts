@@ -68,6 +68,11 @@ export class UserService {
     return userId;
   }
 
+  clearUserCredentials() {
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('accessToken');
+  }
+
   getAccessToken(): string {
     const accessToken = sessionStorage.getItem('accessToken') as string;
 

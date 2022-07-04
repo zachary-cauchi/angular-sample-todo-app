@@ -8,6 +8,7 @@ export class TodoIconPipe implements PipeTransform {
 
   transform(value: number | number[], tags: TodoTag[]): string {
     if (typeof value === 'number') {
+      // If the value is a number, return the icon referenced by the number id.
       return tags.find(t => value === t.id)?.icon || '';
     } else if (value instanceof Array) {
       // If value is a number array, return all the icons referenced by the array.

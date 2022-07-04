@@ -37,7 +37,7 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
-    sessionStorage.clear();
+    this.userService.clearUserCredentials();
     this.location.go(this.location.path());
   }
 
