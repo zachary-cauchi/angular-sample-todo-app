@@ -1,5 +1,4 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
 import { TagService } from './tag.service';
@@ -7,7 +6,6 @@ import { TodoTag } from 'src/models/todo-tag';
 
 describe('TagService', () => {
   let httpTestingController: HttpTestingController;
-  let httpClient: HttpClient;
   let service: TagService;
 
   beforeEach(() => {
@@ -15,7 +13,6 @@ describe('TagService', () => {
       imports: [ HttpClientTestingModule ]
     });
 
-    httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(TagService);
   });

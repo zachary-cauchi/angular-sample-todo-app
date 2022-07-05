@@ -1,5 +1,4 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
 import { TodoService } from './todo.service';
@@ -7,7 +6,6 @@ import { Todo } from 'src/models/todo';
 
 describe('TodoService', () => {
   let httpTestingController: HttpTestingController;
-  let httpClient: HttpClient;
   let service: TodoService;
 
   beforeEach(() => {
@@ -15,7 +13,6 @@ describe('TodoService', () => {
       imports: [ HttpClientTestingModule ]
     });
 
-    httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(TodoService);
   });
@@ -177,25 +174,148 @@ describe('TodoService', () => {
   
       httpTestingController.verify();
     });
+
+    it('Should not add a todo if no user is logged in', () => {
+      const mockTodo = { dateCreated: new Date(2022, 3), text: 'Testing testing 123', tags: [], isComplete: false };
+  
+      spyOn(window.sessionStorage, 'getItem').and.callFake(key => {
+        expect(key).toBe('user');
+  
+        return '';
+      });
+  
+      service.addTodo(mockTodo).subscribe({
+        next: () => {
+          fail('Should not have added a todo');
+        },
+        error: err => {
+          expect(err.error).toBeTruthy();
+          expect(err.error).toEqual('User not logged in, cannot create new todo');
+        }
+      });
+  
+      httpTestingController.expectNone('api/todos');
+  
+      httpTestingController.verify();
+    });
+  
+    it('Should not create a new todo if the request fails', () => {
+      const mockTodo = { dateCreated: new Date(2022, 3), text: 'Testing testing 123', tags: [], isComplete: false };
+      
+      spyOn(window.sessionStorage, 'getItem').and.callFake(key => {
+        expect(key).toBe('user');
+  
+        return '{ "id": 1 }';
+      });
+  
+      service.addTodo(mockTodo).subscribe(todos => {
+        expect(todos).toBeFalsy();
+      });
+  
+      const req = httpTestingController.expectOne('api/todos');
+  
+      expect(req.request.method).toBe('POST');
+  
+      req.flush('Todo: You can\'t create a todo without filling the TD-10', { status: 500, statusText: 'Internal Server Error' });
+  
+      httpTestingController.verify();
+    });
   });
 
-  it('Should not add a todo if no user is logged in', () => {
-    const mockTodo = { dateCreated: new Date(2022, 3), text: 'Testing testing 123', tags: [], isComplete: false };
-    const mockResult: Todo = { id: 11, ...mockTodo, userId: 1 };
+  describe('updateTodo', () => {
+    it('Should update a todo through the correct url path', () => {
+      const mockTodo: Todo = { id: 11, dateCreated: new Date(2022, 3), text: 'Testing testing 123', tags: [], isComplete: false, userId: 1 };
 
-    spyOn(window.sessionStorage, 'getItem').and.callFake(key => {
-      expect(key).toBe('user');
+      spyOn(window.sessionStorage, 'getItem').and.callFake(key => {
+        expect(key).toBe('user');
+  
+        return '{ "id": 1 }';
+      });
+  
+      service.updateTodo(mockTodo).subscribe(todo => {
+        expect(todo).toEqual(mockTodo);
+      });
+  
+      const req = httpTestingController.expectOne('api/todos/11');
+  
+      expect(req.request.method).toBe('PUT');
+      expect(req.request.body).toEqual(mockTodo);
 
-      return '';
+      req.flush(mockTodo);
+  
+      httpTestingController.verify();
     });
 
-    service.addTodo(mockTodo).subscribe(todo => {
-      expect(todo).toEqual(mockResult);
+    it('Should not be able to update a todo if the wrong user is logged in', () => {
+      const mockTodo: Todo = { id: 11, dateCreated: new Date(2022, 3), text: 'Testing testing 123', tags: [], isComplete: false, userId: 13 };
+
+      spyOn(window.sessionStorage, 'getItem').and.callFake(key => {
+        expect(key).toBe('user');
+  
+        return '{ "id": 1 }';
+      });
+  
+      service.updateTodo(mockTodo).subscribe({
+        next: () => {
+          fail('Should not have updated a todo');
+        },
+        error: err => {
+          expect(err.error).toBeTruthy();
+          expect(err.error).toEqual('User does not own this todo, cannot perform update');
+        }
+      });
+  
+      httpTestingController.expectNone('api/todos/11');
+
+      httpTestingController.verify();
     });
 
-    httpTestingController.expectNone('api/todos');
+    it('Should not be able to update a todo if no user is logged in', () => {
+      const mockTodo: Todo = { id: 11, dateCreated: new Date(2022, 3), text: 'Testing testing 123', tags: [], isComplete: false, userId: 13 };
 
-    httpTestingController.verify();
+      spyOn(window.sessionStorage, 'getItem').and.callFake(key => {
+        expect(key).toBe('user');
+  
+        return '';
+      });
+  
+      service.updateTodo(mockTodo).subscribe({
+        next: () => {
+          fail('Should not have updated a todo');
+        },
+        error: err => {
+          expect(err.error).toBeTruthy();
+          expect(err.error).toEqual('User not logged in, cannot update this todo');
+        }
+      });
+  
+      httpTestingController.expectNone('api/todos/11');
+
+      httpTestingController.verify();
+    });
+
+    it('Should not update a todo if the request fails', () => {
+      const mockTodo: Todo = { id: 11, dateCreated: new Date(2022, 3), text: 'Testing testing 123', tags: [], isComplete: false, userId: 1 };
+      
+      spyOn(window.sessionStorage, 'getItem').and.callFake(key => {
+        expect(key).toBe('user');
+  
+        return '{ "id": 1 }';
+      });
+  
+      service.updateTodo(mockTodo).subscribe(todos => {
+        expect(todos).toBeFalsy();
+      });
+  
+      const req = httpTestingController.expectOne('api/todos/11');
+  
+      expect(req.request.method).toBe('PUT');
+      expect(req.request.body).toEqual(mockTodo);
+  
+      req.flush('Hey now, that\'s not yaws!', { status: 500, statusText: 'Internal Server Error' });
+  
+      httpTestingController.verify();
+    });
   });
 
   afterEach(() => {

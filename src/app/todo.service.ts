@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Todo } from 'src/models/todo';
 import { UserService } from './user.service';
 
@@ -51,7 +51,15 @@ export class TodoService {
   }
 
   addTodo(todo: Omit<Todo, 'id' | 'userId'>): Observable<Todo> {
-    const payload = { ...todo, userId: this.userService.getLoggedInUserId() };
+    const userId = this.userService.getLoggedInUserId();
+
+    if (!userId) {
+      return throwError(() => ({
+        error: 'User not logged in, cannot create new todo',
+      }));
+    }
+
+    const payload = { ...todo, userId };
 
     return this.http.post<Todo>(this.todosUrl, payload, this.httpOptions)
       .pipe(
@@ -62,6 +70,17 @@ export class TodoService {
   updateTodo(todo: Todo): Observable<any> {
     const url = `${this.todosUrl}/${todo.id}`;
     const payload = { ...todo, userId: this.userService.getLoggedInUserId() };
+    const userId = this.userService.getLoggedInUserId();
+
+    if (!userId) {
+      return throwError(() => ({
+        error: 'User not logged in, cannot update this todo',
+      }));
+    } else if (userId !== todo.userId) {
+      return throwError(() => ({
+        error: 'User does not own this todo, cannot perform update',
+      }));
+    }
 
     return this.http.put(url, payload, this.httpOptions)
       .pipe(
