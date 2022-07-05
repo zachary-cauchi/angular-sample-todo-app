@@ -43,6 +43,20 @@ describe('TagService', () => {
     httpTestingController.verify();
   });
 
+  it('Should return an empty array if the request fails', () => {
+    service.getTags().subscribe(tags => {
+      expect(tags).toEqual([]);
+    });
+
+    const req = httpTestingController.expectOne('/api/tags');
+
+    expect(req.request.method).toEqual('GET');
+
+    req.flush('Someone popped all my tags', { status: 500, statusText: 'Internal Server Error' });
+
+    httpTestingController.verify();
+  });
+
   afterEach(() => {
     httpTestingController.verify();
   });
