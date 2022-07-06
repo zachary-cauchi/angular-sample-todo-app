@@ -16,7 +16,6 @@ describe('TextEditOnEnterDirective', () => {
 
   let fixture: ComponentFixture<TestComponent>;
   let enterable: any;
-  let nonEnterable: any;
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
@@ -32,7 +31,6 @@ describe('TextEditOnEnterDirective', () => {
   it('should initialise the component with directives', () => {
     expect(fixture).toBeTruthy();
     expect(enterable).toBeTruthy();
-    expect(nonEnterable).toBeTruthy();
   });
 
   it('should should emit an \'onEnter\' event once enter is pressed', () => {

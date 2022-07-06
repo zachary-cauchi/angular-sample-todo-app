@@ -43,11 +43,7 @@ export class UserService {
 
   successfulLogin(res: LoginResponse) {
     if (res.accessToken && res.user) {
-      const user = {
-        firstname: res.user?.firstname,
-        lastname: res.user?.lastname,
-        id: res.user?.id
-      };
+      const user = res.user;
   
       sessionStorage.setItem('accessToken', res.accessToken || '');
       sessionStorage.setItem('user', JSON.stringify(user));
