@@ -1,15 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TextEditOnEnterDirective } from './text-edit-on-enter.directive';
 
 @Component({
   template: `
-    <input #editable appTextEditOnEnter (onEnter)="encounterable.value = ''" />
-    <input #noneditable />
+    <input #editable appTextEditOnEnter (onEnter)="onEnterSpy()" />
   `
 })
-class TestComponent { }
+class TestComponent {
+  onEnterSpy = jasmine.createSpy('onEnter');
+}
 
 describe('TextEditOnEnterDirective', () => {
 
@@ -26,7 +27,6 @@ describe('TextEditOnEnterDirective', () => {
     fixture.detectChanges();
 
     enterable = fixture.debugElement.query(By.directive(TextEditOnEnterDirective));
-    nonEnterable = fixture.debugElement.query(By.css('input:not([appTextEditOnEnter])'));
   });
 
   it('should initialise the component with directives', () => {
@@ -35,24 +35,13 @@ describe('TextEditOnEnterDirective', () => {
     expect(nonEnterable).toBeTruthy();
   });
 
-  it('should clear the text field when onEnter emits', () => {
-    const directive = enterable.injector.get(TextEditOnEnterDirective) as TextEditOnEnterDirective;
+  it('should should emit an \'onEnter\' event once enter is pressed', () => {
     const textField = enterable.nativeElement as HTMLInputElement;
-
-    textField.value = 'Clear me!';
-    textField.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-
-    expect(textField.value)
-      .withContext('initial value')
-      .toBe('Clear me!');
 
     textField.dispatchEvent(new KeyboardEvent('keyup', {
       bubbles: true, cancelable: true, shiftKey: false, key: 'enter', 
     }));
 
-    expect(textField.value)
-      .withContext('changed value')
-      .toBe('');
+    expect(fixture.componentInstance.onEnterSpy).toHaveBeenCalled();
   });
 });
