@@ -38,6 +38,8 @@ export class UserAuthInterceptor implements HttpInterceptor {
     const authToken = this.userService.getAccessToken();
     
     if (!authToken) {
+      this.userService.clearUserCredentials();
+      
       return this.handleReq(next, req);
     }
 
@@ -55,7 +57,7 @@ export class UserAuthInterceptor implements HttpInterceptor {
           this.checkIfJwtExpired(err);
         }
       })
-    )
+    );
   }
 
   private checkIfJwtExpired(err: HttpErrorResponse) {
