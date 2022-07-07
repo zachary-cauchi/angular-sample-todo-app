@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { FullUser, User } from 'src/models/user';
 
 export type LoginResponse = {
@@ -28,6 +28,12 @@ export class UserService {
   ) { }
 
   loginUser(email: string, password: string): Observable<LoginResponse> {
+    if (!email) {
+      return throwError(() => 'No email address was provided');
+    } else if (!password) {
+      return throwError(() => 'No password was provided');
+    }
+
     return this.http.post(this.loginUrl, { email, password }, this.httpOptions).pipe(
       map(this.successfulLogin),
       catchError(this.handleError<any>('loginUser')),
@@ -35,6 +41,14 @@ export class UserService {
   }
 
   createUser(user: Omit<FullUser, 'id'>): Observable<any> {
+    if (!user) {
+      return throwError(() => 'No user provided, must provide a valid user.');
+    } else if (!user.email) {
+      return throwError(() => 'No email address was provided');
+    } else if (!user.password) {
+      return throwError(() => 'No password was provided');
+    }
+
     return this.http.post(this.registerUrl, user, this.httpOptions).pipe(
       map(this.successfulLogin),
       catchError(this.handleError('createUser')),

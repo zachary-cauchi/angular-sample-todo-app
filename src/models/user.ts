@@ -3,7 +3,7 @@ export interface FullUser {
     firstname: string,
     lastname: string,
     password: string,
-    id: 1,
+    id: number,
 }
 
 export type User = Omit<FullUser, 'password'>;
