@@ -1,14 +1,15 @@
 <div>
     <label for="new-todo-textfield">New Todo: </label>
     <input id="new-todo-textfield" type="text" (keypress)="newTodoOnEnter($event)" [(ngModel)]="newTodoText" placeholder="Need to do this..." />
-    <input class="todo-complete-checkbox" type="checkbox" [(ngModel)]="isCompleted" />
+    <input *ngIf="!renderCompact" class="todo-complete-checkbox" type="checkbox" [(ngModel)]="isCompleted" />
     <button (click)="createNewTodo()">Create Todo</button>
-    <p></p>
-    <label for="new-todo-tags">Select tags: </label>
+    <p *ngIf="!renderCompact"></p>
+    <label for="new-todo-tags" *ngIf="!renderCompact">Select tags: </label>
     <ng-multiselect-dropdown
         [placeholder]="'No tags selected'"
         [settings]="dropdownSettings"
         [data]="dropdownTagOptions"
         [(ngModel)]="selectedTags"
+        *ngIf="!renderCompact"
     ></ng-multiselect-dropdown>
 </div>

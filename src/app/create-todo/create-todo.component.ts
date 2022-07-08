@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { Todo } from 'src/models/todo';
 import { TodoTag } from 'src/models/todo-tag';
 import { TagService } from '../tag.service';
 import { TodoService } from '../todo.service';
@@ -11,6 +12,11 @@ import { TodoService } from '../todo.service';
   styleUrls: ['./create-todo.component.scss']
 })
 export class CreateTodoComponent implements OnInit {
+
+  @Input()
+  renderCompact = true;
+  @Output()
+  onNewTodo: EventEmitter<Todo> = new EventEmitter();
 
   newTodoText = '';
   isCompleted = false;
@@ -55,6 +61,9 @@ export class CreateTodoComponent implements OnInit {
     .subscribe(todo => {
       if (todo) {
         this.newTodoText = '';
+        this.onNewTodo.emit(todo);
+      }
+      if (!this.renderCompact) {
         this.location.back();
       }
     });

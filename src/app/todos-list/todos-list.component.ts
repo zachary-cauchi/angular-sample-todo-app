@@ -14,8 +14,6 @@ export class TodosListComponent implements OnInit {
   tags: TodoTag[] = [];
   todos: Todo[] = [];
 
-  newTodoText = '';
-
   constructor(
     private todosService: TodoService,
     private tagsService: TagService
@@ -50,20 +48,8 @@ export class TodosListComponent implements OnInit {
     this.updateTodo({ ...todo, isComplete });
   }
 
-  createNewTodo() {
-    const todoText = this.newTodoText.trim();
-
-    if (!todoText) { return; }
-
-    const todo = { text: todoText, dateCreated: new Date(), isComplete: false } as Todo;
-
-    this.todosService.addTodo(todo)
-    .subscribe(todo => {
-      if (todo) {
-        this.newTodoText = '';
-        this.todos.push(todo);
-      }
-    });
+  addNewTodo(todo: Todo) {
+    this.todos.push(todo);
   }
 
   deleteTodo(id: number) {
@@ -73,12 +59,6 @@ export class TodosListComponent implements OnInit {
           this.todos = this.todos.filter(t => t.id !== id);
         }
       });
-  }
-
-  newTodoOnEnter($event: KeyboardEvent) {
-    if ($event.key === 'Enter') {
-      this.createNewTodo();
-    }
   }
 
 }
