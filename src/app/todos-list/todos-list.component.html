@@ -6,16 +6,16 @@
             <div class="tags-container">
                 <span class="tags">{{todo.tags | todoIcon : this.tags}}</span>
             </div>
-            <app-strikethrough class="todo-text" [strike]="todo.isComplete">
-                <app-text-edit-in-place [readOnly]="todo.isComplete" (update)="updateTodo(todo)">
-                    <ng-template appTextViewMode>
+            <app-text-edit-in-place [readOnly]="todo.isComplete" (update)="updateTodo(todo)">
+                <ng-template appTextViewMode>
+                    <app-strikethrough class="todo-text" [strike]="todo.isComplete">
                         <span class="todo-span">{{todo.text}}</span>
-                    </ng-template>
-                    <ng-template appTextEditMode>
-                        <input class="todo-field" [(ngModel)]="todo.text" [value]="todo.text" />
-                    </ng-template>
+                    </app-strikethrough>
+                </ng-template>
+                <ng-template appTextEditMode>
+                    <input class="todo-field" [(ngModel)]="todo.text" [value]="todo.text" />
+                </ng-template>
                 </app-text-edit-in-place>
-            </app-strikethrough>
             <div class="todo-spacer"></div>
             <div class="todo-complete-checkbox">
                 <input type="checkbox" (change)="updateTodo(todo)" [(ngModel)]="todo.isComplete" />

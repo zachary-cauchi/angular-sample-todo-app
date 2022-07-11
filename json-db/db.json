@@ -117,14 +117,14 @@
         0,
         2
       ],
-      "isComplete": false,
+      "isComplete": true,
       "userId": 2,
       "id": 24
     },
     {
       "text": "test-flex test length really big",
       "dateCreated": "2022-07-04T08:07:37.194Z",
-      "isComplete": false,
+      "isComplete": true,
       "userId": 2,
       "id": 25
     },
@@ -140,7 +140,7 @@
       "text": "Adding new item",
       "dateCreated": "2022-07-08T14:00:16.455Z",
       "tags": [],
-      "isComplete": false,
+      "isComplete": true,
       "userId": 2,
       "id": 27
     }
